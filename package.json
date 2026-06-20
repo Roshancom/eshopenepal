@@ -3,6 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
+  "packageManager": "pnpm@11.3.0",
   "scripts": {
     "dev": "pnpm run --parallel --filter @eshopnepal/backend --filter @eshopnepal/storefront --filter @eshopnepal/admin dev",
     "dev:backend": "pnpm --filter @eshopnepal/backend dev",

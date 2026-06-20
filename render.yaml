@@ -5,8 +5,11 @@ services:
     env: node
     region: singapore
     plan: free
+    # corepack enables pnpm in Render's Node image
+    installCommand: corepack enable && corepack prepare pnpm@11.3.0 --activate
     buildCommand: pnpm install --filter @eshopnepal/backend...
     startCommand: pnpm --filter @eshopnepal/backend start
+    healthCheckPath: /api/health
     envVars:
       - key: NODE_ENV
         value: production
@@ -17,4 +20,6 @@ services:
       - key: ALLOWED_ORIGIN
         sync: false
       - key: FRONTEND_URL
+        sync: false
+      - key: GOOGLE_CLIENT_ID
         sync: false
