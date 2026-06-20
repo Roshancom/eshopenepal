@@ -8,5 +8,5 @@ ALTER TABLE users ADD COLUMN IF NOT EXISTS full_name VARCHAR(255) DEFAULT NULL;
 ALTER TABLE users ADD COLUMN IF NOT EXISTS profile_picture_url VARCHAR(500) DEFAULT NULL;
 ALTER TABLE users ADD COLUMN IF NOT EXISTS auth_provider ENUM('email', 'google') DEFAULT 'email';
 
--- Add index on google_id for faster lookups during Google OAuth login
-CREATE INDEX idx_users_google_id ON users (google_id);
+-- Add unique constraint and index on google_id for faster lookups during Google OAuth login
+CREATE UNIQUE INDEX idx_users_google_id ON users (google_id);

@@ -202,9 +202,12 @@ export async function googleLogin(req: any, res: any) {
     }
 
     const { email, name, picture, sub: googleId } = payload;
-    const userRole = role === 'admin' ? 'admin' : 'consumer';
     const fullName = name || '';
     const profilePicture = picture || '';
+
+    // SECURITY: Only allow admin role if email is in the whitelist
+    const adminEmails = (process.env.ADMIN_GOOGLE_EMAILS || '').split(',').map(e => e.trim().toLowerCase()).filter(Boolean);
+    const userRole = (role === 'admin' && adminEmails.includes(email.toLowerCase())) ? 'admin' : 'consumer';
 
     // Check if user exists (by email or google_id)
     const [existing] = await pool.query(
@@ -255,7 +258,6 @@ export async function googleLogin(req: any, res: any) {
 
     return res.json({
       message: 'Google login successful',
-      token: sessionToken,
       user: {
         id: userId,
         username,

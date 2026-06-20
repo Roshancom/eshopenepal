@@ -9,6 +9,7 @@ interface AdminLoginProps {
   onNavigate: (path: string) => void;
   formSubmitting: boolean;
   showGoogleLogin?: boolean;
+  onGoogleSuccess?: (user: { id: number; username: string; email: string; role: 'consumer' | 'admin' }) => void;
 }
 
 export const AdminLogin: React.FC<AdminLoginProps> = ({
@@ -18,6 +19,7 @@ export const AdminLogin: React.FC<AdminLoginProps> = ({
   onNavigate,
   formSubmitting,
   showGoogleLogin = false,
+  onGoogleSuccess,
 }) => {
   return (
     <div className="min-h-screen bg-gray-50/50 flex items-center justify-center px-4">
@@ -76,6 +78,7 @@ export const AdminLogin: React.FC<AdminLoginProps> = ({
             <GoogleLoginButton
               role="admin"
               onSuccess={(user) => {
+                onGoogleSuccess?.(user);
                 onNavigate("/admin/dashboard");
               }}
               onError={(msg) => {

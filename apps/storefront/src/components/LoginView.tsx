@@ -9,6 +9,7 @@ interface LoginViewProps {
   onNavigate: (path: string) => void;
   formSubmitting: boolean;
   showGoogleLogin?: boolean;
+  onGoogleSuccess?: (user: { id: number; username: string; email: string; role: 'consumer' | 'admin' }) => void;
 }
 
 export const LoginView: React.FC<LoginViewProps> = ({
@@ -18,6 +19,7 @@ export const LoginView: React.FC<LoginViewProps> = ({
   onNavigate,
   formSubmitting,
   showGoogleLogin = false,
+  onGoogleSuccess,
 }) => {
   return (
     <div className="mx-auto max-w-md px-4 py-16">
@@ -73,6 +75,7 @@ export const LoginView: React.FC<LoginViewProps> = ({
             <GoogleLoginButton
               role="consumer"
               onSuccess={(user) => {
+                onGoogleSuccess?.(user);
                 onNavigate("/products");
               }}
               onError={(msg) => {

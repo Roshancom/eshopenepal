@@ -36,7 +36,7 @@ import { RegisterView } from "./components/RegisterView";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { AlertCircle, CheckCircle } from "lucide-react";
 
-function AppContent() {
+function AppContent({ hasGoogleOAuth }: { hasGoogleOAuth: boolean }) {
   const { user, loading: authLoading, setUser } = useAuth();
   const {
     cartItems,
@@ -368,7 +368,8 @@ function AppContent() {
             onSubmit={handleLogin}
             onNavigate={navigate}
             formSubmitting={formSubmitting}
-            showGoogleLogin={true}
+            showGoogleLogin={hasGoogleOAuth}
+            onGoogleSuccess={(u) => setUser(u)}
           />
         )}
 
@@ -379,7 +380,8 @@ function AppContent() {
             onSubmit={handleRegister}
             onNavigate={navigate}
             formSubmitting={formSubmitting}
-            showGoogleLogin={true}
+            showGoogleLogin={hasGoogleOAuth}
+            onGoogleSuccess={(u) => setUser(u)}
           />
         )}
       </main>
@@ -392,13 +394,15 @@ function AppContent() {
 }
 
 export default function App() {
-  const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID || "GOCSPX-placeholder";
+  const rawGoogleId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+  const hasGoogleOAuth = !!rawGoogleId && rawGoogleId !== 'GOCSPX-placeholder' && rawGoogleId !== '123456789-placeholder.apps.googleusercontent.com';
+  const googleClientId = rawGoogleId || 'GOCSPX-placeholder';
 
   return (
     <GoogleOAuthProvider clientId={googleClientId}>
       <AuthProvider>
         <CartProvider>
-          <AppContent />
+          <AppContent hasGoogleOAuth={hasGoogleOAuth} />
         </CartProvider>
       </AuthProvider>
     </GoogleOAuthProvider>

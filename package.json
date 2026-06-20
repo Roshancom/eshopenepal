@@ -10,7 +10,7 @@
     "dev:storefront": "pnpm --filter @eshopnepal/storefront dev",
     "dev:admin": "pnpm --filter @eshopnepal/admin dev",
     "build": "pnpm -r build",
-    "start": "NODE_ENV=production node dist/server.cjs",
+    "start": "pnpm --filter @eshopnepal/backend start",
     "clean": "rm -rf dist && pnpm -r exec rm -rf dist",
     "lint": "pnpm -r lint",
     "seed": "pnpm --filter @eshopnepal/backend seed"

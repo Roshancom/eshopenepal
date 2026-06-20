@@ -4,7 +4,7 @@ import { authApi } from "../utils/api";
 
 interface GoogleLoginButtonProps {
   role?: "consumer" | "admin";
-  onSuccess: (user: { id: number; username: string; email: string; role: string }) => void;
+  onSuccess: (user: { id: number; username: string; email: string; role: 'consumer' | 'admin' }) => void;
   onError: (message: string) => void;
 }
 
