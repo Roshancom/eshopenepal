@@ -1,0 +1,490 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "Admin Owner",
+      "email": "admin@shop.com",
+      "password": "$2b$10$KGvHHwfALAyHccZf3TW5LuAakfAjaFFFNBNdcdDx2y17Eq84kvt1q",
+      "role": "admin",
+      "created_at": "2026-06-10T09:32:25.398Z"
+    },
+    {
+      "id": 2,
+      "username": "John Doe",
+      "email": "john@shop.com",
+      "password": "$2b$10$uLdOzqDBcwwc.UTWPwUKaOA0HU7qRaQib18dEben.kOHWOFViuo1G",
+      "role": "consumer",
+      "created_at": "2026-06-10T09:32:25.399Z"
+    },
+    {
+      "id": 3,
+      "username": "Jane Smith",
+      "email": "jane@shop.com",
+      "password": "$2b$10$uLdOzqDBcwwc.UTWPwUKaOA0HU7qRaQib18dEben.kOHWOFViuo1G",
+      "role": "consumer",
+      "created_at": "2026-06-10T09:32:25.399Z"
+    },
+    {
+      "id": 4,
+      "username": "Alice Johnson",
+      "email": "alice@shop.com",
+      "password": "$2b$10$uLdOzqDBcwwc.UTWPwUKaOA0HU7qRaQib18dEben.kOHWOFViuo1G",
+      "role": "consumer",
+      "created_at": "2026-06-10T09:32:25.399Z"
+    },
+    {
+      "id": 5,
+      "username": "Bob Miller",
+      "email": "bob@shop.com",
+      "password": "$2b$10$uLdOzqDBcwwc.UTWPwUKaOA0HU7qRaQib18dEben.kOHWOFViuo1G",
+      "role": "consumer",
+      "created_at": "2026-06-10T09:32:25.399Z"
+    },
+    {
+      "id": 6,
+      "username": "Charlie Brown",
+      "email": "charlie@shop.com",
+      "password": "$2b$10$uLdOzqDBcwwc.UTWPwUKaOA0HU7qRaQib18dEben.kOHWOFViuo1G",
+      "role": "consumer",
+      "created_at": "2026-06-10T09:32:25.399Z"
+    },
+    {
+      "id": 7,
+      "username": "roshan",
+      "email": "roshan@example.com",
+      "password": "$2b$10$JfCuTICnajsZE1pdNeJfc.RfrxNrgl7oPpnD5vfln6So4W2JMtZWi",
+      "role": "consumer",
+      "created_at": "2026-06-10T10:01:42.384Z"
+    }
+  ],
+  "categories": [
+    {
+      "id": 1,
+      "name": "Electronics",
+      "created_at": "2026-06-10T09:32:25.400Z"
+    },
+    {
+      "id": 2,
+      "name": "Clothing",
+      "created_at": "2026-06-10T09:32:25.400Z"
+    },
+    {
+      "id": 3,
+      "name": "Food",
+      "created_at": "2026-06-10T09:32:25.400Z"
+    },
+    {
+      "id": 4,
+      "name": "Books",
+      "created_at": "2026-06-10T09:32:25.400Z"
+    },
+    {
+      "id": 5,
+      "name": "Sports",
+      "created_at": "2026-06-10T09:32:25.400Z"
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "name": "Wireless Noise-Cancelling Headphones",
+      "description": "Immersive premium sound quality with active noise cancellation and 40 hours battery life.",
+      "price": 249.99,
+      "sale_price": 199.99,
+      "stock": 25,
+      "category_id": 1,
+      "image_url": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&auto=format&fit=crop&q=60",
+      "created_at": "2026-06-10T09:32:25.401Z"
+    },
+    {
+      "id": 2,
+      "name": "Smart Fitness Watch Series X",
+      "description": "Track your daily activities, heart rate, workouts, and sleep cycles with GPS tracking.",
+      "price": 159.99,
+      "sale_price": 129.99,
+      "stock": 50,
+      "category_id": 1,
+      "image_url": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&auto=format&fit=crop&q=60",
+      "created_at": "2026-06-10T09:32:25.402Z"
+    },
+    {
+      "id": 3,
+      "name": "Portable Bluetooth Bluetooth Speaker",
+      "description": "Waterproof stereo speaker with powerful bass and colorful LED party lights.",
+      "price": 79.99,
+      "sale_price": null,
+      "stock": 120,
+      "category_id": 1,
+      "image_url": "https://images.unsplash.com/photo-1545454675-3531b543be5d?w=500&auto=format&fit=crop&q=60",
+      "created_at": "2026-06-10T09:32:25.402Z"
+    },
+    {
+      "id": 4,
+      "name": "Classic Leather Jacket",
+      "description": "Cruelty-free faux leather jacket with metal zippers and comfortable inner lining.",
+      "price": 129,
+      "sale_price": 99,
+      "stock": 15,
+      "category_id": 2,
+      "image_url": "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=500&auto=format&fit=crop&q=60",
+      "created_at": "2026-06-10T09:32:25.403Z"
+    },
+    {
+      "id": 5,
+      "name": "Premium Wool Knit Sweater",
+      "description": "Stay warm and stylish with this ultra-soft, ethically sourced 100% merino knit wool sweater.",
+      "price": 85,
+      "sale_price": 69.99,
+      "stock": 35,
+      "category_id": 2,
+      "image_url": "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=500&auto=format&fit=crop&q=60",
+      "created_at": "2026-06-10T09:32:25.404Z"
+    },
+    {
+      "id": 6,
+      "name": "Comfort-Fit Denim Jeans",
+      "description": "Classic straight-leg cut made from organic cotton stretch fabric for maximum comfort.",
+      "price": 59.99,
+      "sale_price": null,
+      "stock": 80,
+      "category_id": 2,
+      "image_url": "https://images.unsplash.com/photo-1542272604-787c3835535d?w=500&auto=format&fit=crop&q=60",
+      "created_at": "2026-06-10T09:32:25.404Z"
+    },
+    {
+      "id": 7,
+      "name": "Premium Organic Green Tea",
+      "description": "Hand-picked loose-leaf green tea rich in antioxidants. Perfect starting morning tea.",
+      "price": 18.5,
+      "sale_price": 14.99,
+      "stock": 150,
+      "category_id": 3,
+      "image_url": "https://images.unsplash.com/photo-1597481499750-3e6b22637e12?w=500&auto=format&fit=crop&q=60",
+      "created_at": "2026-06-10T09:32:25.404Z"
+    },
+
+    {
+      "id": 8,
+      "name": "Gourmet Organic Honey",
+      "description": "Pure wildflower raw unpasteurized honey directly from regional small farms.",
+      "price": 15,
+      "sale_price": 12.5,
+      "stock": 90,
+      "category_id": 3,
+      "image_url": "https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=500&auto=format&fit=crop&q=60",
+      "created_at": "2026-06-10T09:32:25.405Z"
+    },
+    {
+      "id": 9,
+      "name": "Universal Laws of UX Design",
+      "description": "An essential guidebook for interface engineering, product psychology, and usability standard.",
+      "price": 34.99,
+      "sale_price": null,
+      "stock": 45,
+      "category_id": 4,
+      "image_url": "https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=500&auto=format&fit=crop&q=60",
+      "created_at": "2026-06-10T09:32:25.405Z"
+    },
+    {
+      "id": 10,
+      "name": "History of Modern Architecture",
+      "description": "A beautifully formatted visual timeline chronicling architectural masterpieces and theories.",
+      "price": 49.99,
+      "sale_price": 42,
+      "stock": 20,
+      "category_id": 4,
+      "image_url": "https://images.unsplash.com/photo-1512820790803-83ca734da794?w=500&auto=format&fit=crop&q=60",
+      "created_at": "2026-06-10T09:32:25.405Z"
+    },
+    {
+      "id": 11,
+      "name": "Mindfulness & Meditation Guide",
+      "description": "Practical daily logs and mental excercises for deep reflection, relief, and presence.",
+      "price": 19.99,
+      "sale_price": 15.99,
+      "stock": 100,
+      "category_id": 4,
+      "image_url": "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=500&auto=format&fit=crop&q=60",
+      "created_at": "2026-06-10T09:32:25.405Z"
+    },
+    {
+      "id": 12,
+      "name": "Ergonomic Premium Yoga Mat",
+      "description": "Non-slip extra-thick eco-friendly cushion yoga mat for stretching and pilates workouts.",
+      "price": 45,
+      "sale_price": null,
+      "stock": 55,
+      "category_id": 5,
+      "image_url": "https://images.unsplash.com/photo-1592432678016-e910b452f9a2?w=500&auto=format&fit=crop&q=60",
+      "created_at": "2026-06-10T09:32:25.406Z"
+    },
+    {
+      "id": 13,
+      "name": "Professional Pro Football",
+      "description": "Official size and weight professional premium grade durable outdoor match ball.",
+      "price": 39.99,
+      "sale_price": 29.99,
+      "stock": 30,
+      "category_id": 5,
+      "image_url": "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=500&auto=format&fit=crop&q=60",
+      "created_at": "2026-06-10T09:32:25.406Z"
+    },
+    {
+      "id": 14,
+      "name": "Adjustable Dumbbell Pair",
+      "description": "Selectable weight plates from 5lbs to 25lbs in structured heavy steel construction.",
+      "price": 149,
+      "sale_price": 119,
+      "stock": 22,
+      "category_id": 5,
+      "image_url": "https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?w=500&auto=format&fit=crop&q=60",
+      "created_at": "2026-06-10T09:32:25.406Z"
+    }
+  ],
+  "cart": [
+    {
+      "id": 1,
+      "user_id": 7,
+      "product_id": 2,
+      "quantity": 1,
+      "created_at": "2026-06-10T10:01:55.161Z"
+    }
+  ],
+  "coupons": [
+    {
+      "id": 1,
+      "code": "SAVE10",
+      "discount_percent": 10,
+      "is_active": true,
+      "created_at": "2026-06-10T09:32:25.401Z"
+    },
+    {
+      "id": 2,
+      "code": "FLAT20",
+      "discount_percent": 20,
+      "is_active": true,
+      "created_at": "2026-06-10T09:32:25.401Z"
+    },
+    {
+      "id": 3,
+      "code": "WELCOME5",
+      "discount_percent": 5,
+      "is_active": true,
+      "created_at": "2026-06-10T09:32:25.401Z"
+    }
+  ],
+  "orders": [
+    {
+      "id": 1,
+      "user_id": 2,
+      "total_amount": 459.97,
+      "payment_method": "Cash on Delivery",
+      "status": "Pending",
+      "created_at": "2026-06-10T09:32:25.408Z"
+    },
+    {
+      "id": 2,
+      "user_id": 3,
+      "total_amount": 277.99,
+      "payment_method": "Payment Gateway",
+      "status": "Completed",
+      "created_at": "2026-06-10T09:32:25.409Z"
+    },
+    {
+      "id": 3,
+      "user_id": 4,
+      "total_amount": 189.97,
+      "payment_method": "Cash on Delivery",
+      "status": "Processing",
+      "created_at": "2026-06-10T09:32:25.410Z"
+    },
+    {
+      "id": 4,
+      "user_id": 5,
+      "total_amount": 62.99,
+      "payment_method": "Payment Gateway",
+      "status": "Cancelled",
+      "created_at": "2026-06-10T09:32:25.411Z"
+    },
+    {
+      "id": 5,
+      "user_id": 6,
+      "total_amount": 82.48,
+      "payment_method": "Cash on Delivery",
+      "status": "Shipped",
+      "created_at": "2026-06-10T09:32:25.412Z"
+    },
+    {
+      "id": 6,
+      "user_id": 7,
+      "total_amount": null,
+      "payment_method": "Cash on Delivery",
+      "status": "Pending",
+      "created_at": "2026-06-10T10:02:52.835Z"
+    }
+  ],
+  "order_items": [
+    {
+      "id": 1,
+      "order_id": 1,
+      "product_id": 1,
+      "quantity": 1,
+      "price": 199.99,
+      "created_at": "2026-06-10T09:32:25.409Z"
+    },
+    {
+      "id": 2,
+      "order_id": 1,
+      "product_id": 2,
+      "quantity": 2,
+      "price": 129.99,
+      "created_at": "2026-06-10T09:32:25.409Z"
+    },
+    {
+      "id": 3,
+      "order_id": 2,
+      "product_id": 3,
+      "quantity": 1,
+      "price": 79.99,
+      "created_at": "2026-06-10T09:32:25.409Z"
+    },
+    {
+      "id": 4,
+      "order_id": 2,
+      "product_id": 4,
+      "quantity": 2,
+      "price": 99,
+      "created_at": "2026-06-10T09:32:25.410Z"
+    },
+    {
+      "id": 5,
+      "order_id": 3,
+      "product_id": 5,
+      "quantity": 1,
+      "price": 69.99,
+      "created_at": "2026-06-10T09:32:25.410Z"
+    },
+    {
+      "id": 6,
+      "order_id": 3,
+      "product_id": 6,
+      "quantity": 2,
+      "price": 59.99,
+      "created_at": "2026-06-10T09:32:25.411Z"
+    },
+    {
+      "id": 7,
+      "order_id": 4,
+      "product_id": 7,
+      "quantity": 1,
+      "price": 14.99,
+      "created_at": "2026-06-10T09:32:25.411Z"
+    },
+    {
+      "id": 8,
+      "order_id": 4,
+      "product_id": 8,
+      "quantity": 2,
+      "price": 24,
+      "created_at": "2026-06-10T09:32:25.412Z"
+    },
+    {
+      "id": 9,
+      "order_id": 5,
+      "product_id": 9,
+      "quantity": 1,
+      "price": 12.5,
+      "created_at": "2026-06-10T09:32:25.412Z"
+    },
+    {
+      "id": 10,
+      "order_id": 5,
+      "product_id": 10,
+      "quantity": 2,
+      "price": 34.99,
+      "created_at": "2026-06-10T09:32:25.413Z"
+    },
+    {
+      "id": 11,
+      "order_id": 6,
+      "product_id": 2,
+      "quantity": 1,
+      "price": null,
+      "created_at": "2026-06-10T10:02:52.836Z"
+    }
+  ],
+  "billing_address": [
+    {
+      "id": 1,
+      "user_id": 2,
+      "full_name": "John Doe",
+      "phone": "+977 9851088770",
+      "address": "14 Kanti Path Way",
+      "city": "Kathmandu",
+      "state": "Bagmati",
+      "zip": "44600",
+      "country": "Nepal",
+      "created_at": "2026-06-10T09:32:25.407Z"
+    },
+    {
+      "id": 2,
+      "user_id": 3,
+      "full_name": "Jane Smith",
+      "phone": "+977 9851088771",
+      "address": "15 Kanti Path Way",
+      "city": "Pokhara",
+      "state": "Gandaki",
+      "zip": "44600",
+      "country": "Nepal",
+      "created_at": "2026-06-10T09:32:25.407Z"
+    },
+    {
+      "id": 3,
+      "user_id": 4,
+      "full_name": "Alice Johnson",
+      "phone": "+977 9851088772",
+      "address": "16 Kanti Path Way",
+      "city": "Butwal",
+      "state": "Lumbini",
+      "zip": "44600",
+      "country": "Nepal",
+      "created_at": "2026-06-10T09:32:25.407Z"
+    },
+    {
+      "id": 4,
+      "user_id": 5,
+      "full_name": "Bob Miller",
+      "phone": "+977 9851088773",
+      "address": "17 Kanti Path Way",
+      "city": "Biratnagar",
+      "state": "Koshi",
+      "zip": "44600",
+      "country": "Nepal",
+      "created_at": "2026-06-10T09:32:25.408Z"
+    },
+    {
+      "id": 5,
+      "user_id": 6,
+      "full_name": "Charlie Brown",
+      "phone": "+977 9851088774",
+      "address": "18 Kanti Path Way",
+      "city": "Lalitpur",
+      "state": "Janakpur",
+      "zip": "44600",
+      "country": "Nepal",
+      "created_at": "2026-06-10T09:32:25.408Z"
+    },
+    {
+      "id": 6,
+      "user_id": 7,
+      "full_name": "Roshan Neupane",
+      "phone": "+9779811078487",
+      "address": "imadol,laliitpur,nepal",
+      "city": "lalitpur",
+      "state": "jjj",
+      "zip": "44700",
+      "country": "Nepal",
+      "created_at": "2026-06-10T10:02:52.825Z"
+    }
+  ]
+}

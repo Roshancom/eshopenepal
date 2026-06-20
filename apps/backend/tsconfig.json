@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "allowJs": true
+  },
+  "include": [
+    "api-server.ts",
+    "seed.js",
+    "api/**/*.ts",
+    "src/**/*.ts",
+    "config/**/*.js",
+    "controllers/**/*.ts",
+    "middleware/**/*.ts",
+    "routes/**/*.ts"
+  ],
+  "exclude": ["node_modules"]
+}

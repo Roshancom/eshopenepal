@@ -1,0 +1,20 @@
+services:
+  # ── Backend API (Render Web Service) ────────────────────────────────────
+  - type: web
+    name: eshopnepal-api
+    env: node
+    region: singapore
+    plan: free
+    buildCommand: pnpm install --filter @eshopnepal/backend...
+    startCommand: pnpm --filter @eshopnepal/backend start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: ALLOWED_ORIGIN
+        sync: false
+      - key: FRONTEND_URL
+        sync: false
