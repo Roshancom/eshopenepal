@@ -141,7 +141,7 @@ function emulateSqlQuery(sql, params = []) {
       store[tbName] = [];
       writeLocalDb(store);
     }
-    return [{ affectedRows: 0 }];
+    return { affectedRows: 0 };
   }
 
   // CREATE TABLE
@@ -154,7 +154,7 @@ function emulateSqlQuery(sql, params = []) {
         writeLocalDb(store);
       }
     }
-    return [{ affectedRows: 0 }];
+    return { affectedRows: 0 };
   }
 
   // INSERT INTO
@@ -183,7 +183,7 @@ function emulateSqlQuery(sql, params = []) {
 
       store[tbName].push(row);
       writeLocalDb(store);
-      return [{ insertId: row.id, affectedRows: 1 }];
+      return { insertId: row.id, affectedRows: 1 };
     }
   }
 
@@ -195,12 +195,12 @@ function emulateSqlQuery(sql, params = []) {
       if (idx !== -1) {
         store.billing_address[idx] = { ...store.billing_address[idx], full_name: fullName, phone, address, city, state, zip, country };
         writeLocalDb(store);
-        return [{ affectedRows: 1 }];
+        return { affectedRows: 1 };
       } else {
         const nextId = store.billing_address.length > 0 ? Math.max(...store.billing_address.map(r => r.id || 0)) + 1 : 1;
         store.billing_address.push({ id: nextId, user_id: userId, full_name: fullName, phone, address, city, state, zip, country });
         writeLocalDb(store);
-        return [{ insertId: nextId, affectedRows: 1 }];
+        return { insertId: nextId, affectedRows: 1 };
       }
     }
   }
@@ -261,7 +261,7 @@ function emulateSqlQuery(sql, params = []) {
       }
 
       writeLocalDb(store);
-      return [{ affectedRows: rowsToUpdate.length }];
+      return { affectedRows: rowsToUpdate.length };
     }
   }
 
@@ -295,7 +295,7 @@ function emulateSqlQuery(sql, params = []) {
       }
 
       writeLocalDb(store);
-      return [{ affectedRows: initialLen - (store[tbName]?.length || 0) }];
+      return { affectedRows: initialLen - (store[tbName]?.length || 0) };
     }
   }
 
@@ -371,16 +371,34 @@ function emulateSqlQuery(sql, params = []) {
         });
       }
 
-      // ORDER BY created_at DESC
-      if (sqlLower.includes('order by') && sqlLower.includes('created_at desc')) {
-        results.sort((a, b) => new Date(b.created_at || 0).getTime() - new Date(a.created_at || 0).getTime());
+      // ORDER BY — generic support
+      if (sqlLower.includes('order by')) {
+        const orderMatch = sqlClean.match(/order\s+by\s+(\S+)\s+(asc|desc)/i);
+        if (orderMatch) {
+          const field = orderMatch[1].replace(/^[a-z]+\./, ''); // strip table alias
+          const dir = orderMatch[2].toLowerCase();
+          results.sort((a, b) => {
+            const aVal = a[field];
+            const bVal = b[field];
+            if (field === 'created_at') {
+              const cmp = new Date(aVal || 0).getTime() - new Date(bVal || 0).getTime();
+              return dir === 'desc' ? -cmp : cmp;
+            }
+            if (field === 'id') {
+              const cmp = (Number(aVal) || 0) - (Number(bVal) || 0);
+              return dir === 'desc' ? -cmp : cmp;
+            }
+            const cmp = String(aVal || '').localeCompare(String(bVal || ''));
+            return dir === 'desc' ? -cmp : cmp;
+          });
+        }
       }
 
-      return [results];
+      return results;
     }
   }
 
-  return [[]];
+  return [];
 }
 
 // ─────────────────────────────────────────────────────────────────────────────

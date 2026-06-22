@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react';
 import type { CartItem } from '../types';
 import { cartApi, couponsApi } from '../utils/api';
 import { useAuth } from './AuthContext';
@@ -28,7 +28,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [discountPercentage, setDiscountPercentage] = useState<number>(0);
   const [appliedCouponCode, setAppliedCouponCode] = useState<string>('');
 
-  const refreshCart = async () => {
+  const refreshCart = useCallback(async () => {
     if (!user) {
       setCartItems([]);
       return;
@@ -42,13 +42,13 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     } finally {
       setLoading(false);
     }
-  };
+  }, [user]);
 
   useEffect(() => {
     refreshCart();
-  }, [user]);
+  }, [user, refreshCart]);
 
-  const addToCart = async (productId: number, quantity: number = 1): Promise<string | null> => {
+  const addToCart = useCallback(async (productId: number, quantity: number = 1): Promise<string | null> => {
     if (!user) {
       return 'Please log in to add items to the cart';
     }
@@ -60,9 +60,9 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const errMsg = err.response?.data?.error || 'Failed to add item to cart';
       return errMsg;
     }
-  };
+  }, [user, refreshCart]);
 
-  const updateQuantity = async (productId: number, quantity: number) => {
+  const updateQuantity = useCallback(async (productId: number, quantity: number) => {
     if (!user) return;
     try {
       await cartApi.update(productId, quantity);
@@ -70,9 +70,9 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     } catch (err) {
       console.error('Error updating quantity:', err);
     }
-  };
+  }, [user, refreshCart]);
 
-  const removeItem = async (productId: number) => {
+  const removeItem = useCallback(async (productId: number) => {
     if (!user) return;
     try {
       await cartApi.remove(productId);
@@ -80,9 +80,9 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     } catch (err) {
       console.error('Error removing item from cart:', err);
     }
-  };
+  }, [user, refreshCart]);
 
-  const applyCouponCode = async (code: string) => {
+  const applyCouponCode = useCallback(async (code: string) => {
     if (!user) return { success: false, error: 'Please log in to apply keys' };
     try {
       const res = await couponsApi.apply(code);
@@ -96,48 +96,53 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const error = err.response?.data?.error || 'Invalid or expired coupon';
       return { success: false, error };
     }
-  };
+  }, [user]);
 
-  const clearCouponCode = () => {
+  const clearCouponCode = useCallback(() => {
     setDiscountPercentage(0);
     setAppliedCouponCode('');
-  };
+  }, []);
 
-  const getCartTotal = () => {
+  const getCartTotal = useCallback(() => {
     return cartItems.reduce((acc, item) => {
       const price = item.sale_price !== null ? parseFloat(String(item.sale_price)) : parseFloat(String(item.price));
       return acc + price * item.quantity;
     }, 0);
-  };
+  }, [cartItems]);
 
-  const getDiscountedTotal = () => {
+  const getDiscountedTotal = useCallback(() => {
     const total = getCartTotal();
     const discount = total * (discountPercentage / 100);
     return Math.max(0, total - discount);
-  };
+  }, [getCartTotal, discountPercentage]);
 
-  const getCartCount = () => {
+  const getCartCount = useCallback(() => {
     return cartItems.reduce((acc, item) => acc + item.quantity, 0);
-  };
+  }, [cartItems]);
+
+  const value = useMemo(() => ({
+    cartItems,
+    loading,
+    discountPercentage,
+    appliedCouponCode,
+    refreshCart,
+    addToCart,
+    updateQuantity,
+    removeItem,
+    applyCouponCode,
+    clearCouponCode,
+    getCartTotal,
+    getDiscountedTotal,
+    getCartCount
+  }), [
+    cartItems, loading, discountPercentage, appliedCouponCode,
+    refreshCart, addToCart, updateQuantity, removeItem,
+    applyCouponCode, clearCouponCode,
+    getCartTotal, getDiscountedTotal, getCartCount
+  ]);
 
   return (
-    <CartContext.Provider
-      value={{
-        cartItems,
-        loading,
-        discountPercentage,
-        appliedCouponCode,
-        refreshCart,
-        addToCart,
-        updateQuantity,
-        removeItem,
-        applyCouponCode,
-        clearCouponCode,
-        getCartTotal,
-        getDiscountedTotal,
-        getCartCount
-      }}
-    >
+    <CartContext.Provider value={value}>
       {children}
     </CartContext.Provider>
   );

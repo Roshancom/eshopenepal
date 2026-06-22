@@ -162,7 +162,6 @@
       "image_url": "https://images.unsplash.com/photo-1597481499750-3e6b22637e12?w=500&auto=format&fit=crop&q=60",
       "created_at": "2026-06-10T09:32:25.404Z"
     },
-
     {
       "id": 8,
       "name": "Gourmet Organic Honey",
@@ -248,6 +247,13 @@
       "product_id": 2,
       "quantity": 1,
       "created_at": "2026-06-10T10:01:55.161Z"
+    },
+    {
+      "id": 2,
+      "user_id": 7,
+      "product_id": 5,
+      "quantity": 1,
+      "created_at": "2026-06-22T07:42:49.943Z"
     }
   ],
   "coupons": [

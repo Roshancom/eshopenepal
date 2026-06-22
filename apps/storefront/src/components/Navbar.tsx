@@ -7,7 +7,7 @@ interface NavbarProps {
   currentPath: string;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ navigate, currentPath }) => {
+export const Navbar: React.FC<NavbarProps> = React.memo(({ navigate, currentPath }) => {
   const { user, logout } = useAuth();
   const { getCartCount } = useCart();
 
@@ -99,4 +99,5 @@ export const Navbar: React.FC<NavbarProps> = ({ navigate, currentPath }) => {
       </div>
     </header>
   );
-};
+});
+Navbar.displayName = "Navbar";
