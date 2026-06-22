@@ -408,35 +408,67 @@ function AppContent({ hasGoogleOAuth }: { hasGoogleOAuth: boolean }) {
     (!user && currentPath !== "/admin/register")
   ) {
     return (
-      <AdminLogin
-        loginForm={loginForm}
-        setLoginForm={setLoginForm}
-        onSubmit={handleLogin}
-        onNavigate={navigate}
-        formSubmitting={formSubmitting}
-        showGoogleLogin={hasGoogleOAuth}
-        onGoogleSuccess={(u) => setUser(u)}
-      />
+      <>
+        {toast && (
+          <div className="fixed top-20 right-4 z-[9999] flex max-w-sm items-center gap-3 rounded-2xl border border-gray-100 bg-white p-4 shadow-xl">
+            {toast.type === "success" ? (
+              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-emerald-50 text-emerald-600">
+                <CheckCircle size={18} />
+              </div>
+            ) : (
+              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-rose-50 text-rose-600">
+                <AlertCircle size={18} />
+              </div>
+            )}
+            <p className="text-xs font-bold text-gray-800">{toast.message}</p>
+          </div>
+        )}
+        <AdminLogin
+          loginForm={loginForm}
+          setLoginForm={setLoginForm}
+          onSubmit={handleLogin}
+          onNavigate={navigate}
+          formSubmitting={formSubmitting}
+          showGoogleLogin={hasGoogleOAuth}
+          onGoogleSuccess={(u) => setUser(u)}
+        />
+      </>
     );
   }
 
   // Admin register screen
   if (currentPath === "/admin/register" && !user) {
     return (
-      <AdminRegister
-        registerForm={registerForm}
-        setRegisterForm={setRegisterForm}
-        confirmPassword={confirmPassword}
-        setConfirmPassword={setConfirmPassword}
-        registerErrors={registerErrors}
-        setRegisterErrors={setRegisterErrors}
-        passwordStrength={passwordStrength}
-        onSubmit={handleRegister}
-        onNavigate={navigate}
-        formSubmitting={formSubmitting}
-        showGoogleLogin={hasGoogleOAuth}
-        onGoogleSuccess={(u) => setUser(u)}
-      />
+      <>
+        {toast && (
+          <div className="fixed top-20 right-4 z-[9999] flex max-w-sm items-center gap-3 rounded-2xl border border-gray-100 bg-white p-4 shadow-xl">
+            {toast.type === "success" ? (
+              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-emerald-50 text-emerald-600">
+                <CheckCircle size={18} />
+              </div>
+            ) : (
+              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-rose-50 text-rose-600">
+                <AlertCircle size={18} />
+              </div>
+            )}
+            <p className="text-xs font-bold text-gray-800">{toast.message}</p>
+          </div>
+        )}
+        <AdminRegister
+          registerForm={registerForm}
+          setRegisterForm={setRegisterForm}
+          confirmPassword={confirmPassword}
+          setConfirmPassword={setConfirmPassword}
+          registerErrors={registerErrors}
+          setRegisterErrors={setRegisterErrors}
+          passwordStrength={passwordStrength}
+          onSubmit={handleRegister}
+          onNavigate={navigate}
+          formSubmitting={formSubmitting}
+          showGoogleLogin={hasGoogleOAuth}
+          onGoogleSuccess={(u) => setUser(u)}
+        />
+      </>
     );
   }
 
