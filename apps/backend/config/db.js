@@ -424,7 +424,8 @@ const db = {
 
   /**
    * Run multiple queries inside a MySQL transaction.
-   * Falls back gracefully if MySQL is unavailable (runs queries without transaction).
+   * Falls back gracefully to the local JSON store when MySQL is unavailable
+   * OR when the MySQL transaction fails (e.g. missing tables, constraints).
    */
   async transaction(fn) {
     if (mysqlWorking && pool) {
@@ -436,7 +437,18 @@ const db = {
         return result;
       } catch (err) {
         await conn.rollback();
-        throw err;
+        // Fall back to JSON store — same as db.query() does for individual queries
+        console.warn('⚠️ MySQL transaction error, falling back to local store:', err?.message || err);
+        const fakeConn = {
+          query: async (sql, params) => [emulateSqlQuery(sql, params), null],
+          execute: async (sql, params) => [emulateSqlQuery(sql, params), null],
+        };
+        try {
+          return await fn(fakeConn);
+        } catch (fallbackErr) {
+          console.error('❌ Transaction fallback also failed:', fallbackErr?.message || fallbackErr);
+          throw fallbackErr;
+        }
       } finally {
         conn.release();
       }

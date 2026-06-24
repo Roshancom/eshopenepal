@@ -11,7 +11,7 @@ import {
   useCart,
 } from "@eshopnepal/shared";
 import type { Order, BillingAddress } from "@eshopnepal/shared";
-import { authApi, ordersApi, billingApi } from "@eshopnepal/shared";
+import { authApi, ordersApi, billingApi, esewaApi } from "@eshopnepal/shared";
 import { Navbar } from "./components/Navbar";
 import { ProductsListingView } from "./components/ProductsListingView";
 import { GoogleOAuthProvider } from "@react-oauth/google";
@@ -40,6 +40,11 @@ const CheckoutView = React.lazy(() =>
 const OrderConfirmationView = React.lazy(() =>
   import("./components/OrderConfirmationView").then((m) => ({
     default: m.OrderConfirmationView,
+  })),
+);
+const PaymentResultView = React.lazy(() =>
+  import("./components/PaymentResultView").then((m) => ({
+    default: m.PaymentResultView,
   })),
 );
 const LoginView = React.lazy(() =>
@@ -160,6 +165,10 @@ function AppContent({ hasGoogleOAuth }: { hasGoogleOAuth: boolean }) {
           return;
         }
       }
+      if (hash.startsWith("/payment-result")) {
+        setCurrentPath("/payment-result");
+        return;
+      }
       setCurrentPath(hash);
     };
     window.addEventListener("hashchange", handleHashChange);
@@ -254,10 +263,54 @@ function AppContent({ hasGoogleOAuth }: { hasGoogleOAuth: boolean }) {
       setFormSubmitting(true);
       try {
         await billingApi.save(checkoutBilling);
-        await ordersApi.place({
+        const orderResult = await ordersApi.place({
           payment_method: paymentMethod,
           coupon_code: appliedCouponCode || undefined,
         });
+
+        // For eSewa payments, redirect to eSewa payment page
+        if (paymentMethod === "eSewa" && orderResult.orderId) {
+          try {
+            const esewaData = await esewaApi.initiate({
+              order_id: orderResult.orderId,
+              total_amount: orderResult.total_amount,
+            });
+
+            // Create a hidden form and auto-submit to eSewa
+            const form = document.createElement("form");
+            form.method = "POST";
+            form.action = esewaData.formUrl;
+
+            Object.entries(esewaData.formData).forEach(([key, value]) => {
+              const input = document.createElement("input");
+              input.type = "hidden";
+              input.name = key;
+              input.value = String(value);
+              form.appendChild(input);
+            });
+
+            document.body.appendChild(form);
+            form.submit();
+            // No need to setFormSubmitting(false) — we're leaving the page
+            return;
+          } catch (esewaErr: any) {
+            // Clean up the orphaned order and restore cart items
+            try {
+              await esewaApi.cleanup(orderResult.orderId);
+              await refreshCart();
+            } catch {
+              // Best-effort cleanup — order may remain as Pending
+            }
+            triggerToast(
+              "error",
+              esewaErr.response?.data?.error || "Failed to initiate eSewa payment."
+            );
+            setFormSubmitting(false);
+            return;
+          }
+        }
+
+        // COD flow — show confirmation and redirect
         triggerToast("success", "Order placed successfully!");
         clearCouponCode();
         refreshCart();
@@ -383,6 +436,10 @@ function AppContent({ hasGoogleOAuth }: { hasGoogleOAuth: boolean }) {
             loading={activeOrderLoading}
             onNavigate={navigate}
           />
+        )}
+
+        {currentPath === "/payment-result" && (
+          <PaymentResultView navigate={navigate} />
         )}
 
         {currentPath === "/login" && (

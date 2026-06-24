@@ -17,6 +17,7 @@ import orderRoutes from '../routes/orderRoutes.js';
 import billingRoutes from '../routes/billingRoutes.js';
 import customerRoutes from '../routes/customerRoutes.js';
 import reportRoutes from '../routes/reportRoutes.js';
+import esewaRoutes from '../routes/esewaRoutes.js';
 
 const app = express();
 
@@ -66,6 +67,7 @@ app.use('/api/orders', orderRoutes);
 app.use('/api/billing', billingRoutes);
 app.use('/api/customers', customerRoutes);
 app.use('/api/reports', reportRoutes);
+app.use('/api/esewa', esewaRoutes);
 
 // Payment config check for frontend Stripe integration
 app.get('/api/payments/config', (req, res) => {

@@ -20,6 +20,7 @@ export {
   customerApi,
   reportApi,
   paymentsApi,
+  esewaApi,
 } from './utils/api';
 
 export { AuthProvider, useAuth } from './context/AuthContext';

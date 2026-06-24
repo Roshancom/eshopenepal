@@ -184,6 +184,26 @@ export const reportApi = {
   },
 };
 
+// eSewa Payments API
+export const esewaApi = {
+  async initiate(data: { order_id: number; total_amount: number }) {
+    const res = await api.post("/esewa/initiate", data);
+    return res.data;
+  },
+  async verify(data: {
+    product_code: string;
+    total_amount: number;
+    transaction_uuid: string;
+  }) {
+    const res = await api.post("/esewa/verify", data);
+    return res.data;
+  },
+  async cleanup(order_id: number) {
+    const res = await api.post("/esewa/cleanup", { order_id });
+    return res.data;
+  },
+};
+
 // Payments config
 export const paymentsApi = {
   async getConfig() {
