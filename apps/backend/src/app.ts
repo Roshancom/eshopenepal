@@ -2,10 +2,10 @@
 import 'dotenv/config';
 
 import express from 'express';
-import path from 'path';
 import fs from 'fs';
 import cors from 'cors';
 import db from '../config/db.js';
+import { resolveBackendDir, normalizeImageUrls } from './utils/paths.js';
 
 // Route imports
 import authRoutes from '../routes/authRoutes.js';
@@ -38,16 +38,15 @@ app.use(cors({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Resolve uploads path — works both from monorepo root and standalone deployment
-function resolveDir(subpath: string): string {
-  const fromMonorepo = path.join(process.cwd(), 'apps', 'backend', subpath);
-  if (fs.existsSync(path.join(process.cwd(), 'apps', 'backend'))) {
-    return fromMonorepo;
-  }
-  return path.join(process.cwd(), subpath);
-}
+// ── Response middleware: normalize image_url to absolute URLs ────────
+// Must be registered BEFORE route handlers so res.json is intercepted.
+app.use((req, res, next) => {
+  const origJson = res.json.bind(res);
+  res.json = (body: unknown) => origJson(normalizeImageUrls(req, body));
+  next();
+});
 
-const uploadsDir = resolveDir('uploads');
+const uploadsDir = resolveBackendDir('uploads');
 try {
   if (!fs.existsSync(uploadsDir)) {
     fs.mkdirSync(uploadsDir, { recursive: true });

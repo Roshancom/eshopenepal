@@ -10,11 +10,11 @@ import {
   deleteProduct
 } from '../controllers/ProductController.js';
 import { adminMiddleware } from '../middleware/auth.js';
+import { resolveBackendDir } from '../src/utils/paths.js';
 
 const router = Router();
 
-// Ensure upload directory exists
-const uploadsDir = path.join(process.cwd(), 'backend', 'uploads');
+const uploadsDir = resolveBackendDir('uploads');
 if (!fs.existsSync(uploadsDir)) {
   fs.mkdirSync(uploadsDir, { recursive: true });
 }
